@@ -1,0 +1,536 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url(../font/NotoSansJP-Bold.woff2) format(woff2),
+  url(../font/NotoSansJP-Bold.woff) format(woff),
+  url(../font/NotoSansJP-Bold.otf) format(opentype);
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url(../font/NotoSansJP-Regular.woff2) format(woff2),
+  url(../font/NotoSansJP-Regular.woff) format(woff),
+  url(../font/NotoSansJP-Regular.otf) format(opentype);
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url(../font/NotoSerifJP-Bold.woff2) format(woff2),
+  url(../font/NotoSerifJP-Bold.woff) format(woff),
+  url(../font/NotoSerifJP-Bold.otf) format(opentype);
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url(../font/NotoSerifJP-Regular.woff2) format(woff2),
+  url(../font/NotoSerifJP-Regular.woff) format(woff),
+  url(../font/NotoSerifJP-Regular.otf) format(opentype);
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Kiwi Maru';
+  src: url(../font/KiwiMaru-Regular.woff2) format(woff2),
+  url(../font/KiwiMaru-Regular.woff) format(woff),
+  url(../font/KiwiMaru-Regular.ttf) format(truetype);
+  font-weight: normal;
+}
+html {
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  width: 100%;
+  background-color: #f6f8f9;
+  color: #333;
+  font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", Meiryo, "sans-serif";
+  font-weight: normal;
+  font-size: 1rem;
+  text-align: left;
+  -webkit-text-size-adjust: 100%;
+}
+a {
+  color: #333;
+}
+/* ボタンタグの装飾リセット */
+button {
+  cursor: pointer;
+  vertical-align: middle;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* ヘッダーとハンバーガーメニューのスタイリング */
+:root {
+  --loading-index: 100; /* ローディングのz-index */
+  --button-index: 30; /* ボタンのz-index */
+  --nav-index: 20; /* ナビゲーションのz-index */
+  --header-index: 15; /* ヘッダーのz-index */
+  --bg_index: 10; /* ハンバーガー背景のz-index */
+  --Red-color:#B40019;
+  --Yellow-color:#E8CF50;
+  --Green-color:#BBE7AA;
+  --DeepGreen-color:#144D00;
+  --White-color:#fff;
+  --Gray-color:#999;
+  --Black-color:#000;
+}
+
+/* ローディングアニメーション */
+.loading-animation {
+  opacity: 1;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%;
+  height: 100vh; */
+  background-color: var(--White-color);
+  z-index: var(--loading-index);
+  transition: opacity 1.5s 1.5s ease-out,visibility 1.5s 1.5s ease-out; 
+}
+.loading-animation img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: logo-fadeIn 2s ease-out forwards;
+}
+@keyframes logo-fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+.is-loaded.loading-animation {
+  opacity: 0;
+  visibility: hidden;
+}
+.is-loaded.loading-animation img {
+  opacity: 1;
+  transform: translateY(0);
+}
+.is-loaded.fadeUp {
+  opacity: 1;
+  animation-name: fadeUpAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+}
+.is-loaded.fadeToRight {
+  opacity: 1;
+  animation-name: fadeToRightAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+}
+.is-hidden.loading-animation {
+  display: none;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 0;
+  z-index: var(--header-index);
+}
+.header-wrap {
+  padding: 0 24px;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__top-link {
+  display: block;
+  width: 140px;
+}
+.header__top-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* ハンバーガーメニュー */
+.header__button {
+  position: relative;
+  width: 40px;
+  height: 21px;
+  padding: 5px 0;
+  background-color: transparent;
+  z-index: var(--button-index);
+  cursor: pointer;
+}
+.header__button-line {
+  position: absolute;
+  inset: 0;
+  width: 40px;
+  height: 2px;
+  border-radius: 10px;
+  background-color: var(--White-color);
+  margin: auto;
+  transition: transform 0.6s ease, background-color 0.6s ease;
+}
+.header__button-line.black {
+  background-color: var(--Black-color);
+}
+.header__button-line:first-child {
+  transform: translateY(-6px);
+}
+.header__button-line:last-child {
+  transform: translateY(6px);
+}
+.is-active.header__button-line {
+  background-color: var(--Black-color);
+}
+.header__nav {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transform: translateY(-100%);
+  z-index: var(--nav-index);
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  background-color: var(--Yellow-color);
+  transition-property: opacity, visibility, transform;
+  transition-duration: .6s;
+  transition-timing-function: ease;
+}
+.header__nav-bg {
+  opacity: .1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: url(../images/conversion/logo_bg.svg);
+  width: 80%;
+  max-width: 800px;
+  z-index: -1;
+}
+.header__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 0;
+  width: 100%;
+  height: 100%;
+}
+.header_link {
+  display: block;
+  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--White-color);
+  z-index: var(--button-index);
+  transition: color .3s ease;
+}
+
+.header__item-btn {
+  width: 100%;
+}
+.header_link-btn {
+  position: relative;
+  display: block;
+  max-width: 300px;
+  padding: 22px 0 24px;
+  margin: 40px auto 0;
+  border-radius: 40px;
+  background-color: var(--Red-color);
+  text-align: center;
+  color: var(--White-color);
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+.header_link-btn::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 8%;
+  content: "";
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  border-top: 2px solid var(--White-color);
+  border-right: 2px solid var(--White-color);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* ボタンクリック後の処理 */
+body.is-open {
+  overflow: hidden;
+}
+.is-open .header__nav {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transform: translateY(0);
+}
+/* ボタン押された時の動き */
+.is-open .header__button span {
+  background-color: #333;
+}
+.is-open .header__button span:first-child {
+  transform: rotate(45deg);
+}
+.is-open .header__button span:last-child {
+  transform: rotate(-45deg);
+}
+
+@media (min-width:1025px) {
+  .header {
+    padding: 18px 0;
+  }
+  .header-wrap {
+    padding: 0 90px;
+  }
+  .header__nav {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transform: translateY(0);
+    width: auto;
+    height: auto;
+    padding: 0;
+    background-color: transparent;
+  }
+  .header__nav-bg {
+    display: none;
+  }
+  .header__list {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0 40px;
+  }
+  .header_link {
+    font-size: 1.125rem; /* 18px */
+    font-weight: normal;
+    color: var(--White-color);
+  }
+  .header_link.is-active {
+    color: #333;
+  }
+  /* ボタンとSP版についているコンバージョンボタンを消す */
+  .header__button,.header__item-btn,.header_link-btn {
+    display: none;
+  }
+}
+
+
+footer {
+  background-color: var(--White-color);
+  padding: 40px 0 12px;
+}
+.footer-wrap {
+  width: 75vw;
+  margin: 0 auto;
+  text-align: center;
+}
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 1020px;
+  margin: 0 auto 60px;
+}
+.footer-logo {
+  width: 100%;
+  max-width: 180px;
+}
+.footer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.footer-container ol {
+  display: flex;
+  flex-direction: column;
+  gap: 15px 0;
+  text-align: left;
+}
+footer small {
+  font-size: 0.625rem;
+  color: var(--Gray-color);
+}
+
+.scroll-top {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  right: 1rem;
+  bottom: 1.5rem;
+  display: block;
+  z-index: var(--bg_index);
+  transition: opacity .3s ease;
+}
+.scroll-top a {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--DeepGreen-color);
+  box-shadow: 0px 0px 10px rgba(0,0,0,.2);
+}
+.scroll-top a::after {
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-top: solid 2px var(--White-color);
+  border-left: solid 2px var(--White-color);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 7px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.is-active.scroll-top {
+  opacity: 1;
+  visibility: visible;
+}
+@media (min-width:768px) {
+  footer {
+    padding: 30px 0 24px;
+  }
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .footer-logo {
+    max-width: 210px;
+  }
+  .footer-container ol {
+    font-size: 1.125rem;
+  }
+  footer small {
+    font-size: 0.875rem;
+  }
+
+  .scroll-top a {
+    width: 75px;
+    height: 75px;
+  }
+  .scroll-top a::after {
+    width: 21px;
+    height: 21px;
+    border-top: solid 5px var(--White-color);
+    border-left: solid 5px var(--White-color);
+    border-radius: 2px;
+  }
+}
+@media (min-width:1025px) {
+  .header-wrap nav ol a:hover,.footer-container nav a:hover {
+    color: var(--Red-color);
+  }
+  .scroll-top {
+    right: 3rem;
+    bottom: 3.5rem;
+  }
+  .header-wrap nav ol a,.footer-container nav a,.scroll-top a {
+    transition: .2s;
+  }
+  .scroll-top a:hover {
+    background-color: var(--Yellow-color);
+  }
+}
+
+/* CSSアニメーション */
+@keyframes fadeUpAnime{
+  from {
+      opacity: 0;
+      transform: translateY(100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+}
+}
+@keyframes fadeDownAnime{
+  from {
+    opacity: 0;
+  transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+  transform: translateY(0);
+  }
+}
+@keyframes fadeToRightAnime{
+  from {
+    opacity: 0;
+  transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+  transform: translateX(0);
+  }
+}
+@keyframes fadeToLeftAnime{
+  from {
+    opacity: 0;
+  transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+  transform: translateX(0);
+  }
+}
+
+.fadeUp,.fadeToRight,.fadeDown,.fadeToLeft {
+  opacity: 0;
+}
+
+.is-show.fadeUp {
+  opacity: 1;
+  animation-name: fadeUpAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+}
+.is-show.fadeToRight {
+  opacity: 1;
+  animation-name:fadeToRightAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+}
+.is-show.fadeDown {
+  opacity: 1;
+  animation-name:fadeDownAnime;
+  animation-duration:2s;
+  animation-fill-mode:forwards;
+}
+.is-show.fadeToLeft {
+  opacity: 1;
+  animation-name:fadeToLeftAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+}
+
+
