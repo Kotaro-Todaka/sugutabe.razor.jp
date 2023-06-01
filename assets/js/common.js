@@ -38,11 +38,6 @@ hamburger.on('click',function(){
   }
 });
 
-// navigationLinks.each(function() {
-//   this.on('click',function(){
-//     $('body').removeClass('is-open');
-//   });
-// });
 
 // Swiperアニメーション制御
 const swiper = new Swiper(".section-voice-slider", {
